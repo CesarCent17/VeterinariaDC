@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block title %}Editar Cita{% endblock title %}
+
+{% block content %}
+    <!--
+    <div class="container">
+        <strong>Usuario:</strong> {{ cita.perfil }}<br>
+        <strong>Id Cita:</strong> {{ cita.id }}<br>
+        <strong>Mascota:</strong> {{ cita.mascota.mascota }}<br>
+        <strong>Fecha:</strong> {{ cita.fecha }}<br>
+    </div>
+    -->
+
+
+    <!--Formulario para editar-->
+     <section>
+        <div class="container my-4 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-6">
+                    <div class="card">
+                        <div class="card-body p-4">
+                            <h2 class="text-center h4">Editar Cita</h2>
+                            <form method="post" action="{% url 'micuenta:editarcita' cita.id %}" class="form">{% csrf_token %}
+                                <div class="form-outline mb-4">
+                                    <label class="form-label">Usuario</label>
+                                    <input type="text" class="form-control" readonly name="perfil" value="{{ cita.perfil.usuario }}" required>
+                                </div>
+
+
+                                <div class="form-outline mb-4">
+                                    <label class="form-label">Cita Agendada Previamente Para</label>
+                                    <input type="text" class="form-control" readonly name="mascota_actual" value="{{ cita.mascota.mascota }}" required>
+                                </div>
+
+
+                                <label class="form-label">Cambiar Mascota</label>
+                                <select class="form-select" aria-label="Default select example" name="mascota">
+                                    {% for mascota in  mascotas %}
+                                        <!--<option value="{{ forloop.counter }}" >{{ mascota.mascota }}</option>-->
+                                        <option value="{{ mascota.id }}" >{{ mascota.mascota }}</option>
+                                    {% endfor %}
+                                </select>
+
+
+                                 <div class="form-outline mb-4">
+                                     <label class="form-label">Fecha</label><br>
+                                     <input type="datetime-local" class="datetime" name="fecha" value="{{ cita.fecha }}" required>
+                                 </div>
+
+                                 <div class="text-center text-lg-start mt-4 pt-2">
+                                     <input type="submit" value="Guardar" class="btn btn-primary" style="padding-left: 2.5rem; padding-right: 2.5rem;">
+                                 </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+     </section>
+
+{% endblock content %}

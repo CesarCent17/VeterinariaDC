@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load crispy_forms_tags %}
+{% block title %}Formulario de registro{% endblock title %}
+
+{% block content %}
+{% if request.POST %}
+    {% if mensaje %}
+        <div class="alert alert-danger" role="alert">
+            {{ mensaje }}
+        </div>
+    {% endif %}
+{% endif %}
+
+<section class="vh-100 bg-image">
+  <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+    <div class="container h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+          <div class="card" style="border-radius: 15px;">
+            <div class="card-body p-5">
+              <h2 class="text-center mb-5">Crear una cuenta</h2>
+
+              <form method="post" class="form" action="{% url 'micuenta:guardarcuenta' %}">{% csrf_token %}
+
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="form3Example1cg">Tu usuario</label>
+                  {{ form.username | add_class:'form-control form-control-lg' }}
+                </div>
+
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="form3Example4cg">Contraseña</label>
+                  {{ form.password1 | add_class:'form-control form-control-lg' }}
+                </div>
+
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="form3Example4cdg">Repite tu contraseña</label>
+                  {{ form.password2 | add_class:'form-control form-control-lg' }}
+                </div>
+
+
+                <div class="d-flex justify-content-center">
+                    <input type="submit" value="Registrarse" class="btn btn-primary btn-block btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;">
+                </div>
+              </form>
+                <p class="text-center text-muted mt-5 mb-0">¿Ya tienes cuenta?<a href="{% url 'micuenta:login' %}" class="fw-bold text-body"><u>Entre aqui</u></a></p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+{% endblock content %}

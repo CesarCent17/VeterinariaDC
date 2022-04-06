@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Base{% endblock title %}</title>
+    <link rel="stylesheet" href="{% static 'home/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'home/css/main.css' %}">
+</head>
+<body>
+    <!--NAVBAR-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'home:home' %}">VeterinariaDc</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-5">
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'home:home' %}">Inicio</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'contacto:contacto' %}">Contáctanos</a>
+            </li>
+              {% if request.user.is_authenticated %}
+                <!--
+                <button type="button" class="btn btn-outline-light">
+                    <a href="{% url 'micuenta:inicio'%}">Mi Cuenta</a>
+                </button> -->
+                <a href="{% url 'micuenta:inicio' %}" class="btn btn-light active" >Mi Cuenta</a>
+                <a href="{% url 'micuenta:logout' %}" class="btn btn-danger active mx-2" >Cerrar Sesion</a>
+              {% else %}
+                  <!--
+                  <button type="button" class="btn btn-outline-light">
+                    <a href="{% url 'micuenta:login'%}">Mi Cuenta</a>
+                  </button> -->
+                  <a href="{% url 'micuenta:login' %}" class="btn btn-light active" >Mi Cuenta</a>
+
+              {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!--CONTENIDO DINAMICO-->
+
+    {% block content %}
+
+    {% endblock content %}
+
+    <!--FOOTER-->
+
+
+    <!--JS-->
+    <script src="{% static 'home/js/popper.min.js' %}"></script>
+    <script src="{% static 'home/js/bootstrap.min.js' %}"></script>
+</body>
+</html>

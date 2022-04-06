@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}Inicio{% endblock title %}
+
+{% block content %}
+
+    <!--CAROUSEL-->
+    <div class="carousel slide" id="mainSlider" data-bs-ride="carousel">
+
+        <!--CONTENEDOR DE IMAGENES-->
+        <div class="carousel-inner">
+
+            <div class="carousel-item active">
+                <img src="{% static 'home/img/slide-011.png' %}" alt="" class="d-block w-100">
+            </div>
+
+            <div class="carousel-item">
+                <img src="{% static 'home/img/slide-022.png' %}" alt="" class="d-block w-100">
+            </div>
+
+            <div class="carousel-item">
+                <img src="{% static 'home/img/slide-033.png' %}" alt="" class="d-block w-100">
+            </div>
+
+            <!--
+            <div class="carousel-caption d-none d-md-block">
+                <h5 class="h2">Clinica Veterinaria</h5>
+                <p class="h4">El mejor cuidado para tus mascotas.</p>
+            </div>-->
+        </div>
+    </div>
+
+    {% if request.user.is_authenticated %}
+        <div class="alert alert-success h5 col-3" role="alert">
+              Bienvenido {{ request.user.username}}!
+        </div>
+    {% endif %}
+
+    <!--CARDS-->
+    <div id="cards-primary">
+        <div class="container-md p-5">
+            <!--FILA-->
+            <div class="row">
+                <h3 class="text-center pb-5 h1">Clinica Veterinaria</h3>
+            </div>
+            <!--FILA-->
+            <div class="row">
+                <!--CARTA-->
+                <div class="col-sm">
+                    <div class="card w-100 card-border">
+                        <img src="{% static 'home/img/card-01.png' %}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Atencion 24/7</h5>
+                            <p class="card-text">Contamos con profesionales y especialistas para cada consulta.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!--CARTA-->
+                <div class="col-sm">
+                    <div class="card w-100 card-border">
+                        <img src="{% static 'home/img/card-02.png' %}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                          <h5 class="card-title">Cirugia</h5>
+                            <p class="card-text">Nuestro quirófano dispone del equipo medico necesario para garantizar la seguridad de cada...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!--CARTA-->
+                <div class="col-sm">
+                    <div class="card w-100 card-border">
+                        <img src="{% static 'home/img/card-03.png' %}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                          <h5 class="card-title">Vacunacion</h5>
+                            <p class="card-text">La vacunación es un acto clínico de gran importancia para la salud de las mascotas</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <!--QUIENES SOMOS-->
+    <div id="quienes-somos">
+        <div class="container-sm p-5">
+
+            <!--FILA-->
+            <div class="row">
+                <div class="col">
+                    <h3 class="h1">Quienes Somos</h3>
+                </div>
+
+            </div>
+
+            <!--FILA-->
+            <div class="row">
+                <!--COLUMNA DE IMAGEN-->
+                <div class="col-5">
+                    <img src="{% static 'home/img/quienes-somos.png' %}" alt="" class="w-100">
+                </div>
+
+                <!--COLUMNA CONTENEDORA-->
+                <div class="col-7">
+                    <div class="row">
+                        <div class="col">
+                            <h2 class="text-dark">Mision</h2>
+                            <p>
+                                Satisfacer los requerimientos y expectativas en el marco de la salud veterinaria,
+                                logrando así, posicionarnos como una clínica destacada por un completo cubrimiento de servicios para la salud,
+                                bienestar de nuestras mascotas, desde la ética humana profesional comprometida y responsable de calidad con el fin de
+                                brindar la mejor alternativa en atención especializada para peludos pacientes.
+                            </p>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col">
+                            <h2 class="text-dark">Vision</h2>
+                            <p>
+                                Ofrecer la mejor opción en medicina veterinaria para preservar la salud de nuestras mascotas junto con la tranquilidad de sus familias, ofreciendo servicios especializados de calidad en el marco de la salud veterinaria, cuidado y bienestar de las mascotas; nuestro valor agregado es trabajar día a día comprometidos para lograr total cobertura a las necesidades de nuestros pacientes, mediante un equipo profesional capacitado,
+                                la infraestructura e instrumentación adecuada de alta tecnología que permitiré optimizar nuestra labor.
+                            </p>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+{% endblock content %}

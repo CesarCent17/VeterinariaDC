@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+
+{% block title %}Mi Cuenta{% endblock title %}
+{% block content %}
+
+    {% if messages %}
+        {% for menssage in messages %}
+            <div class="alert alert-success h5 col-3" role="alert">
+              {{ menssage }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <!--{% if request.POST %}
+        {% if request.user.is_authenticated %}
+            <div class="alert alert-success h5 col-3" role="alert">
+                  Bienvenido {{ request.user.username}}!
+            </div>
+        {% endif %}
+    {% endif %}-->
+
+
+    <!--<div>
+        Usuario: {{ perfil.usuario }}
+    </div>
+
+    {% for mascota in  mascotas %}
+        <div>
+            {{ mascota.mascota }}
+        </div>
+    {% endfor %}-->
+
+
+
+        {% if request.user.is_superuser %}
+            <h1 class="alert-dark text-center h3">Cuenta de adminstrador</h1>
+        {% endif %}
+
+
+    <section>
+        <div class="container my-4">
+            <div class="row"> <!--FILA-->
+
+                <!--COLUMNA AGENDAR CITA-->
+                <div class="col-3">
+                    <div class="card">
+                        <div class="card-body p-4">
+                        <h2 class="text-center h4">Agendar Cita</h2>
+                            <form method="post" action="{% url 'micuenta:agendarcita' %}" class="form">{% csrf_token %}
+                                <div class="form-outline mb-4">
+                                    <label class="form-label">Usuario</label>
+                                    <input type="text" class="form-control" readonly name="perfil" value="{{ perfil.usuario }}" required>
+                                </div>
+
+                                <label class="form-label">Elige tu mascota</label>
+                                <select class="form-select" aria-label="Default select example" name="mascota">
+                                    {% for mascota in  mascotas %}
+                                        <!--<option value="{{ forloop.counter }}" >{{ mascota.mascota }}</option>-->
+                                        <option value="{{ mascota.id }}" >{{ mascota.mascota }}</option>
+                                    {% endfor %}
+                                </select>
+
+
+                                 <div class="form-outline mb-4">
+                                     <label class="form-label">Fecha</label><br>
+                                     <input type="datetime-local" class="datetime" name="fecha" value="{{ cita.fecha }}" required>
+                                 </div>
+
+                                 <div class="text-center text-lg-start mt-4 pt-2">
+                                     <input type="submit" value="Guardar" class="btn btn-primary" style="padding-left: 2.5rem; padding-right: 2.5rem;">
+                                 </div>
+
+
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!--COLUMNA CITAS AGENDADAS-->
+                <div class="col-9 px-5">
+                    <div class="table-responsive py-2">
+                        <h1>Citas Agendadas</h1>
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Mascota</th>
+                                    <th>Fecha</th>
+                                    <th colspan="2">Opciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for cita in citas %}
+                                <tr>
+                                    <td>{{forloop.counter}}</td>
+                                    <td>{{cita.mascota.mascota}}</td>
+                                    <td>{{cita.fecha}}</td>
+                                    <td><a href="{% url 'micuenta:edicioncita' cita.id %}" class="btn btn-info">Editar Cita</a></td>
+                                    <td><a href="{% url 'micuenta:eliminarcita' cita.id %}" class="btn btn-danger btnEliminacion">Cancelar Cita</a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            </div>
+    </section>
+
+
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-3">
+                <div class="table-responsive py-2">
+                    <h1>Mis Mascotas</h1>
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Especie</th>
+                                <th>Sexo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for mascota in mascotas %}
+                                <tr>
+                                    <td>{{mascota.mascota}}</td>
+                                    <td>{{ mascota.especie }}</td>
+                                    <td>{{mascota.sexo}}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if request.user.is_superuser %}
+        <div>
+            <p>Es superusuario</p>
+        </div>
+    {% endif %}
+
+
+
+
+
+
+{% endblock content %}

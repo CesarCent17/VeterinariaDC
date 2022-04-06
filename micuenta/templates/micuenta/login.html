@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block title %}Login{% endblock title %}
+
+{% block content %}
+    {% if messages %}
+        {% for menssage in messages %}
+            <div class="alert alert-success h5 col-3" role="alert">
+              {{ menssage }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <section class="vh-100">
+      <div class="container-fluid h-custom">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1 py-5">
+            <form method="post" class="form">{% csrf_token %}
+              <!-- User input -->
+              <div class="form-outline mb-4">
+                <label class="form-label" for="form3Example3">Usuario</label>
+                  {{ form.username |add_class:'form-control'|attr:'placeholder: Ingrese su usuario'|attr:'required' }}
+              </div>
+
+              <!-- Password input -->
+              <div class="form-outline mb-3">
+                <label class="form-label" for="form3Example4">Contraseña</label>
+                  {{ form.password|add_class:'form-control'|attr:'placeholder: Ingrese su contraseña'|attr:'required' }}
+              </div>
+
+
+              <div class="text-center text-lg-start mt-4 pt-2">
+                  <input type="submit" value="Iniciar Sesion" class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;">
+                    <p class="small fw-bold mt-2 pt-1 mb-0">¿No tienes cuenta?
+                        <a href="{% url 'micuenta:registrocuenta' %}" class="link-danger">Registrate</a>
+                    </p>
+              </div>
+            {% if request.user.is_authenticated %}
+                Bienvenido {{ request.user.username }}!
+            {% endif %}
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+{% endblock content %}
