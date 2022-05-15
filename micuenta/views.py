@@ -15,10 +15,9 @@ def inicio(request):
     perfil = Perfil.objects.get(usuario=request.user)
     lista_mascotas = perfil.mascota_set.all()
     citas = perfil.cita_set.all()
-    context = {'perfil':perfil, 'mascotas':lista_mascotas, 'citas':citas}
-
     #ADMINISTRADOR
-    perfiles_all
+    perfiles_admin = Perfil.objects.all()
+    context = {'perfil': perfil, 'mascotas': lista_mascotas, 'citas': citas, 'perfiles_admin':perfiles_admin}
     return render(request,'micuenta/inicio.html',context)
 
 def registrocuenta(request):
@@ -69,12 +68,27 @@ def editarcita(request, id_cita):
         cita.save()
         messages.success(request, '¡Cita Actualizada Correctamente!')
         return redirect('micuenta:inicio')
-@login_required
+
+@login_required #DECORADOR
 def eliminarcita(request, id_cita):
     cita = get_object_or_404(Cita, pk=id_cita)
     cita.delete()
     messages.success(request, '¡Cita Cancelada Exitosamente!')
     return redirect('micuenta:inicio')
+
+@login_required
+def agregarmascota(request):
+    if request.method == 'POST':
+        perfil_id = request.POST['perfil_admin']
+        perfil = get_object_or_404(Perfil, pk=perfil_id)
+        mascota = request.POST['mascota_admin']
+        sexo =  request.POST['sexo']
+        especie =  request.POST['especie']
+        Mascota.objects.create(perfil=perfil, mascota=mascota, sexo=sexo, especie=especie)
+        messages.success(request, '¡Mascota Agregada Correctamente!')
+        return redirect('micuenta:inicio')
+
+
 
 
 

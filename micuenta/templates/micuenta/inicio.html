@@ -3,6 +3,7 @@
 {% block title %}Mi Cuenta{% endblock title %}
 {% block content %}
 
+
     {% if messages %}
         {% for menssage in messages %}
             <div class="alert alert-success h5 col-3" role="alert">
@@ -11,30 +12,53 @@
         {% endfor %}
     {% endif %}
 
-    <!--{% if request.POST %}
-        {% if request.user.is_authenticated %}
-            <div class="alert alert-success h5 col-3" role="alert">
-                  Bienvenido {{ request.user.username}}!
-            </div>
-        {% endif %}
-    {% endif %}-->
+    <!--SI ES ADMINISTRADOR-->
+    {% if request.user.is_superuser %}
+        <h1 class="alert-dark text-center h3">Cuenta de adminstrador</h1>
+        <!--AGREGAR MASCOTAS-->
+        <div class="container">
+        <div class="row">
+            <div class="col-9">
+                    <div class="card">
+                        <div class="card-body p-4">
+                        <h2 class="text-center h4">Agregar Mascota</h2>
+                            <form method="post" action="{% url 'micuenta:agregarmascota' %}" class="form">{% csrf_token %}
 
+                                <label class="form-label">Elige un perfil</label>
+                                <select class="form-select" aria-label="Default select example" name="perfil_admin">
+                                    {% for perfil in  perfiles_admin %}
+                                        <!--<option value="{{ forloop.counter }}" >{{ mascota.mascota }}</option>-->
+                                        <option value="{{ perfil.id }}" >{{ perfil.usuario }}</option>
+                                    {% endfor %}
+                                </select>
 
-    <!--<div>
-        Usuario: {{ perfil.usuario }}
-    </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label">Mascota</label>
+                                    <input type="text" class="form-control" name="mascota_admin" required>
+                                </div>
 
-    {% for mascota in  mascotas %}
-        <div>
-            {{ mascota.mascota }}
+                                <label class="form-label">Sexo</label>
+                                <select name="sexo" class="form-select" aria-label="Default select example" required>
+                                    <option>M</option>
+                                    <option>F</option>
+                                </select>
+
+                                <label class="form-label">Especie</label>
+                                <select name="especie" class="form-select" aria-label="Default select example" required>
+                                    <option>Gato</option>
+                                    <option>Perro</option>
+                                </select>
+
+                                <div class="text-center text-lg-start mt-4 pt-2">
+                                     <input type="submit" value="Guardar" class="btn btn-primary" style="padding-left: 2.5rem; padding-right: 2.5rem;">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
         </div>
-    {% endfor %}-->
-
-
-
-        {% if request.user.is_superuser %}
-            <h1 class="alert-dark text-center h3">Cuenta de adminstrador</h1>
-        {% endif %}
+        </div>
+        {% else %} <!--SI NO-->
 
 
     <section>
@@ -136,10 +160,8 @@
             </div>
         </div>
     </div>
-    {% if request.user.is_superuser %}
-        <div>
-            <p>Es superusuario</p>
-        </div>
+
+
     {% endif %}
 
 

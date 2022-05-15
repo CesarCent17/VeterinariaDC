@@ -14,4 +14,5 @@ urlpatterns = [
     path('edicioncita/<int:id_cita>', views.edicioncita, name='edicioncita'),
     path('edtarcita/<int:id_cita>', views.editarcita, name='editarcita'),
     path('eliminarcita/<int:id_cita>', views.eliminarcita, name='eliminarcita'),
+    path('agregarmascota/', views.agregarmascota, name='agregarmascota'),
 ]
